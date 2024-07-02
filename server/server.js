@@ -12,7 +12,8 @@ const collectionNames = process.env.MONGO_DB_COLLECTION.split(',');
 const PORT = 3001;
 const app = express();
 
-
+app.use(express.json());
+app.use(cors());
 
 app.get('/api/characters', async (req, res) => {
     try {
