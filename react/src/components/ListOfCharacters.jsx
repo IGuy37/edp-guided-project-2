@@ -1,7 +1,8 @@
 
-import Character from "./Character";
+import {Link} from "react-router-dom";
 
 const ListOfCharacters = (props) => {
+    
     return (
         <>
             <div>List of Characters</div>
@@ -10,7 +11,7 @@ const ListOfCharacters = (props) => {
 
                 {
                     props.data.map((character) => (
-                        <Character key={character._id} data={character} />
+                        <Link key={character._id} className = "nav-link" to={`/characters/${character.id}`} onClick={() => props.updateChar(character)}>{character.name}</Link>
                     ))
                 }
             </div>

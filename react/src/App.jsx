@@ -3,9 +3,20 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ListOfCharacters from "./components/ListOfCharacters";
+import Character from "./components/Character";
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useParams
+} from "react-router-dom";
+
+
+export default function App() {
   const [characters, setCharacters] = useState([]);
+  const [currentCharacter, setCurrentCharacter] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,28 +35,26 @@ function App() {
     fetchData();
   }, []);
 
+  const fetchCharacter = async (id) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/characters/id`);
+      if (!response.ok) {
+        throw new Error('Data could not be fetched!');
+      }
+      const json_response = await response.json();
+      setCharacters(json_response);
+    } catch (error) {
+      console.error('Error fetching socks:', error);
+    }
+  }
+
+
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <ListOfCharacters data={characters}></ListOfCharacters>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ListOfCharacters data={characters} updateChar={setCurrentCharacter}/> }/>
+        <Route path="/characters/:id" element={<Character data={currentCharacter}/>} />
+      </Routes>
+    </Router>
   )
 }
-
-export default App
