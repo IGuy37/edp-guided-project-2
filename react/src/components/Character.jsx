@@ -1,5 +1,7 @@
 import React from "react";
 import "../site.css"
+import ListOfPlanets from "./ListOfPlanets";
+import ListOfFilms from "./ListOfFilms";
 
 export default function Character(props){
 
@@ -15,12 +17,12 @@ export default function Character(props){
             <hr></hr>
             <section id="planets">
                 <h2>Homeworld</h2>
-                <p><span id="homeworld"></span></p>
+                <ListOfPlanets data={props.planets}/>
             </section>
             <hr></hr>
             <section id="films">
                 <h2>Films appeared in</h2>
-                <ul></ul>
+                <ListOfFilms data={props.films}/>
             </section>
         </>
     );
