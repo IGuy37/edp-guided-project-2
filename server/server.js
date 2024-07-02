@@ -71,17 +71,6 @@ app.get("/api/characters/:id", async (req, res) => {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
 app.get("/api/films/:id", async (req, res) => {
     try {
         const filmId = +req.params.id;
