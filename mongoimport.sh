@@ -10,4 +10,4 @@ for json_file in $JSON_DIR/*.json; do
 done
  
 #chmod +x mongoimport.sh
-#/mongoimport.sh
+#./mongoimport.sh
