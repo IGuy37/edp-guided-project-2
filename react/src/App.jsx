@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import ListOfCharacters from "./components/ListOfCharacters";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -40,6 +40,7 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
+      <ListOfCharacters data={characters}></ListOfCharacters>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
