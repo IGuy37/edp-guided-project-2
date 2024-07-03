@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 
 const ListOfFilms = (props) => {
-    
+    console.log(props);
     return (
         <>
             <div>List of Films</div>

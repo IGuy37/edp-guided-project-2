@@ -8,9 +8,7 @@ import Planet from "./components/Planet";
 import {
   BrowserRouter as Router,
   Route,
-  Routes,
-  Link,
-  useParams
+  Routes
 } from "react-router-dom";
 
 
@@ -21,6 +19,8 @@ export default function App() {
   const [currentCharacter, setCurrentCharacter] = useState({});
   const [currentPlanet, setCurrentPlanet] = useState({});
   const [currentFilm, setCurrentFilm] = useState({});
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,16 +41,23 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if(!currentCharacter.id) {
-        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead and fetch the appropriate character.
-        return;
-      }
-      try {
+      try{
+        if(currentCharacter.reloaded) {
+          const characterId = currentCharacter.id;
+          if(!characterId) return; //quit if no char id in URL
+          const responseCharacter = await fetch(`${import.meta.env.VITE_API_URL}/characters/${characterId}`);
+          if (!responseCharacter.ok) {
+          throw new Error('Character could not be fetched!');
+          }
+          const json_responseCharacter = await responseCharacter.json();
+          setCurrentCharacter(json_responseCharacter[0]);
+        }
         const responseFilms = await fetch(`${import.meta.env.VITE_API_URL}/characters/${currentCharacter.id}/films`);
         if (!responseFilms.ok) {
           throw new Error('Films could not be fetched!');
         }
         const json_responseFilms = await responseFilms.json();
+        //console.log(json_responseFilms);
         setFilms(json_responseFilms);
         const responsePlanets = await fetch(`${import.meta.env.VITE_API_URL}/planets/${currentCharacter.homeworld}`);
         if (!responsePlanets.ok) {
@@ -70,9 +77,19 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if(!currentPlanet.id) {
-        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead and fetch the appropriate planet.
-        return;
+      //console.log({params})
+      if(currentPlanet.reloaded) {
+        
+        const planetId = currentPlanet.id;
+        if(!planetId) return; //quit if no planet id in URL
+        const responsePlanet = await fetch(`${import.meta.env.VITE_API_URL}/planets/${planetId}`);
+        if (!responsePlanet.ok) {
+          throw new Error('Planet could not be fetched!');
+        }
+        const json_responsePlanet = await responsePlanet.json();
+        //console.log({json_responsePlanet});
+        setCurrentPlanet(json_responsePlanet[0]);
+        //console.log(currentPlanet);
       }
       try {
         const responseCharacters = await fetch(`${import.meta.env.VITE_API_URL}/planets/${currentPlanet.id}/characters`);
@@ -99,11 +116,19 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if(!currentFilm.id) {
-        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead and fetch the appropriate film.
-        return;
-      } 
+      
       try {
+        if(currentFilm.reloaded) {
+          console.log("Hello!");
+          const filmId = currentFilm.id;
+          const responseFilm= await fetch(`${import.meta.env.VITE_API_URL}/films/${filmId}`);
+          if (!responseFilm.ok) {
+            throw new Error('Film could not be fetched!');
+          }
+          const json_responseFilm = await responseFilm.json();
+          
+          setCurrentFilm(json_responseFilm[0]);
+        } 
         const responseCharacters = await fetch(`${import.meta.env.VITE_API_URL}/films/${currentFilm.id}/characters`);
         if (!responseCharacters.ok) {
           throw new Error('Characters could not be fetched!');
@@ -133,7 +158,8 @@ export default function App() {
         <Route path="/characters/:id" element={<Character 
                                                   data={currentCharacter} 
                                                   films={films}
-                                                  planets={planets} 
+                                                  planets={planets}
+                                                  updateChar={setCurrentCharacter} 
                                                   updateFilm={setCurrentFilm} 
                                                   updatePlanet={setCurrentPlanet}/>} />
         <Route path="/planets/:id" element={<Planet 
@@ -141,12 +167,14 @@ export default function App() {
                                                   chars={characters} 
                                                   films={films}
                                                   updateChar={setCurrentCharacter} 
-                                                  updateFilm={setCurrentFilm}/>} />
+                                                  updateFilm={setCurrentFilm}
+                                                  updatePlanet={setCurrentPlanet}/>} />
         <Route path="/films/:id" element={<Film 
                                                   data={currentFilm}
                                                   chars={characters}
                                                   planets = {planets} 
-                                                  updateChar={setCurrentCharacter} 
+                                                  updateChar={setCurrentCharacter}
+                                                  updateFilm={setCurrentFilm} 
                                                   updatePlanet={setCurrentPlanet}/>} />
       </Routes>
     </Router>

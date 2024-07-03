@@ -1,11 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../site.css"
 import ListOfPlanets from "./ListOfPlanets";
 import ListOfCharacters from "./ListOfCharacters";
+import {useParams} from "react-router-dom";
 
 export default function Film(props){
-
     const film = props.data;
+    const params = useParams();
+    useEffect(() => {
+        if(!film.id){
+            props.updateFilm({reloaded: true, id: params.id})
+        }
+    }, [])
+    
+    if(!film.id){
+        props.updateFilm({test: true, id: params.id})
+    }
     console.log(props);
     return(
         <>
