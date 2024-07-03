@@ -32,7 +32,7 @@ export default function Film(props){
                 <ListOfPlanets data={props.planets} updatePlanet={props.updatePlanet}/>
             </section>
             <hr></hr>
-            <section id="films">
+            <section id="characters">
                 <h2>Characters Featured</h2>
                 <ListOfCharacters data={props.chars} updateChar={props.updateChar}/>
             </section>

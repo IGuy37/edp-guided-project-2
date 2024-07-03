@@ -154,7 +154,10 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ListOfCharacters data={characters} updateChar={setCurrentCharacter}/> }/>
+        <Route path="/" element={
+          <section id="characters">
+            <ListOfCharacters data={characters} updateChar={setCurrentCharacter}/>
+          </section> }/>
         <Route path="/characters/:id" element={<Character 
                                                   data={currentCharacter} 
                                                   films={films}

@@ -6,7 +6,6 @@ const ListOfCharacters = (props) => {
     return (
         <>
             <div>List of Characters</div>
-            <h5>Featured</h5>
             <div className="d-flex flex-row justify-content-start" style={{ gap: "20px", padding: "20px" }}>
 
                 {

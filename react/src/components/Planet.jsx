@@ -25,7 +25,7 @@ export default function Planet(props){
                 <p>Terrain: {planet.terrain}</p>
             </section>
             <hr></hr>
-            <section id="planets">
+            <section id="characters">
                 <h2>Characters Featured</h2>
                 <ListOfCharacters data={props.chars} updateChar={props.updateChar}/>
             </section>
