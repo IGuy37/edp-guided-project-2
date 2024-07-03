@@ -2,7 +2,7 @@
 import {Link} from "react-router-dom";
 
 const ListOfCharacters = (props) => {
-    
+    console.log(props); 
     return (
         <>
             <div>List of Characters</div>

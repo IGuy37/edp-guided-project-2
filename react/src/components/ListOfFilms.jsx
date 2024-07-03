@@ -9,7 +9,7 @@ const ListOfFilms = (props) => {
 
                 {
                     props.data.map((film) => (
-                        <Link key={film._id} className = "nav-link" to={`/films/${film.id}`} onClick={() => props.updateFilm(film)}>{film.name}</Link>
+                        <Link key={film._id} className = "nav-link" to={`/films/${film.id}`} onClick={() => props.updateFilm(film)}>{film.title}</Link>
                     ))
                 }
             </div>

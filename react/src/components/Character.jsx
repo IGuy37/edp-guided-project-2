@@ -4,7 +4,7 @@ import ListOfPlanets from "./ListOfPlanets";
 import ListOfFilms from "./ListOfFilms";
 
 export default function Character(props){
-
+    console.log(props);
     const character = props.data;
     return(
         <>
@@ -17,12 +17,12 @@ export default function Character(props){
             <hr></hr>
             <section id="planets">
                 <h2>Homeworld</h2>
-                <ListOfPlanets data={props.planets}/>
+                <ListOfPlanets data={props.planets} updatePlanet={props.updatePlanet}/>
             </section>
             <hr></hr>
             <section id="films">
                 <h2>Films appeared in</h2>
-                <ListOfFilms data={props.films}/>
+                <ListOfFilms data={props.films} updateFilm={props.updateFilm}/>
             </section>
         </>
     );

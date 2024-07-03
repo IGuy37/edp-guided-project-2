@@ -32,7 +32,7 @@ export default function App() {
         const json_response = await response.json();
         setCharacters(json_response);
       } catch (error) {
-        console.error('Error fetching socks:', error);
+        console.error('Error fetching characters:', error);
       }
     };
 
@@ -41,23 +41,27 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if(!currentCharacter.id) {
+        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead.
+        return;
+      }
       try {
         const responseFilms = await fetch(`${import.meta.env.VITE_API_URL}/characters/${currentCharacter.id}/films`);
         if (!responseFilms.ok) {
-          throw new Error('Data could not be fetched!');
+          throw new Error('Films could not be fetched!');
         }
         const json_responseFilms = await responseFilms.json();
         setFilms(json_responseFilms);
-        const responsePlanets = await fetch(`${import.meta.env.VITE_API_URL}/characters/${currentCharacter.id}/planets`);
+        const responsePlanets = await fetch(`${import.meta.env.VITE_API_URL}/planets/${currentCharacter.homeworld}`);
         if (!responsePlanets.ok) {
-          throw new Error('Data could not be fetched!');
+          throw new Error('Planets could not be fetched!');
         }
         const json_responsePlanets = await responsePlanets.json();
         setPlanets(json_responsePlanets);
 
 
       } catch (error) {
-        console.error('Error fetching socks:', error);
+        console.error('Error fetching films & planets for character:', error);
       }
     };
 
@@ -66,23 +70,27 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if(!currentPlanet.id) {
+        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead.
+        return;
+      }
       try {
         const responseCharacters = await fetch(`${import.meta.env.VITE_API_URL}/planets/${currentPlanet.id}/characters`);
         if (!responseCharacters.ok) {
-          throw new Error('Data could not be fetched!');
+          throw new Error('Characters could not be fetched!');
         }
         const json_responseCharacters = await responseCharacters.json();
         setCharacters(json_responseCharacters);
         const responseFilms = await fetch(`${import.meta.env.VITE_API_URL}/planets/${currentPlanet.id}/films`);
         if (!responseFilms.ok) {
-          throw new Error('Data could not be fetched!');
+          throw new Error('Films could not be fetched!');
         }
         const json_responseFilms = await responseFilms.json();
         setFilms(json_responseFilms);
 
 
       } catch (error) {
-        console.error('Error fetching socks:', error);
+        console.error('Error fetching characters & films for planet:', error);
       }
     };
 
@@ -91,23 +99,27 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if(!currentFilm.id) {
+        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead.
+        return;
+      } 
       try {
         const responseCharacters = await fetch(`${import.meta.env.VITE_API_URL}/films/${currentFilm.id}/characters`);
         if (!responseCharacters.ok) {
-          throw new Error('Data could not be fetched!');
+          throw new Error('Characters could not be fetched!');
         }
         const json_responseCharacters = await responseCharacters.json();
         setCharacters(json_responseCharacters);
         const responsePlanets = await fetch(`${import.meta.env.VITE_API_URL}/films/${currentFilm.id}/planets`);
         if (!responsePlanets.ok) {
-          throw new Error('Data could not be fetched!');
+          throw new Error('Planets could not be fetched!');
         }
         const json_responsePlanets = await responsePlanets.json();
         setPlanets(json_responsePlanets);
 
 
       } catch (error) {
-        console.error('Error fetching socks:', error);
+        console.error('Error fetching characters & planets for film:', error);
       }
     };
 
