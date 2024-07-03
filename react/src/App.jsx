@@ -42,7 +42,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       if(!currentCharacter.id) {
-        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead.
+        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead and fetch the appropriate character.
         return;
       }
       try {
@@ -71,7 +71,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       if(!currentPlanet.id) {
-        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead.
+        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead and fetch the appropriate planet.
         return;
       }
       try {
@@ -100,7 +100,7 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       if(!currentFilm.id) {
-        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead.
+        //TODO: Check if URL has id. If not, don't try to fetch. If so, use that instead and fetch the appropriate film.
         return;
       } 
       try {
